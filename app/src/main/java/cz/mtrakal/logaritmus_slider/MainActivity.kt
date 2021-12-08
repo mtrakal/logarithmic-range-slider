@@ -9,7 +9,6 @@ import java.text.NumberFormat
 import java.util.*
 import kotlin.math.exp
 import kotlin.math.ln
-import kotlin.math.log
 import kotlin.math.pow
 
 class MainActivity : AppCompatActivity() {
@@ -43,21 +42,26 @@ class MainActivity : AppCompatActivity() {
     /**
      * Base of logarithm.
      */
-    val logBase: MutableLiveData<String> = MutableLiveData<String>("2.0")
-
+    val logBaseLD: MutableLiveData<String> = MutableLiveData<String>("")
+    var logBase: Double = 2.0
 
     lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView<ActivityMainBinding?>(this, R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         binding.lifecycleOwner = this
         binding.item = this
 
         setSliders()
 
         maxValue.observe(this) { value ->
-            logBase.value = getLogBase(valuesRange).toString()
+            logBase = getLogBase(valuesRange)
+            logBaseLD.value = logBase.toString()
+        }
+        minValue.observe(this) { value ->
+            logBase = getLogBase(valuesRange)
+            logBaseLD.value = logBase.toString()
         }
     }
 
@@ -76,7 +80,7 @@ class MainActivity : AppCompatActivity() {
                     maximumFractionDigits = 0
                     currency = Currency.getInstance("USD")
                 }.run {
-                    format(getSliderCurrentValue(value))
+                    format(getSliderCurrentValue(value.toDouble(), logBase, minValue.value?.toDoubleOrNull() ?: 0.0))
                 }
             }
         }
@@ -85,8 +89,13 @@ class MainActivity : AppCompatActivity() {
     /**
      * Calculate amount from current slider value
      */
-    private fun getSliderCurrentValue(value: Float): Double =
-        (logBase.value?.toDoubleOrNull() ?: 2.0).pow(value.toDouble()) + (minValue.value?.toDoubleOrNull() ?: 0.0) - 1.0 // -1.0 because log starts at 1.
+    private fun getSliderCurrentValue(value: Float): Double = getSliderCurrentValue(value.toDouble(), logBase, minValue.value?.toDoubleOrNull() ?: 0.0)
+
+    /**
+     * Calculate amount from current slider value
+     */
+    private fun getSliderCurrentValue(value: Double, logBase: Double, minValue: Double = 0.0): Double =
+        logBase.pow(value) + minValue - 1.0 // -1.0 because log starts at 1.
 
     /**
      * Get Base of logarithm from number and steps which we set.
