@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.MutableLiveData
 import cz.mtrakal.logaritmus_slider.databinding.ActivityMainBinding
+import java.lang.Math.log
 import java.text.NumberFormat
 import java.util.*
 import kotlin.math.exp
@@ -26,7 +27,7 @@ class MainActivity : AppCompatActivity() {
      * Range between [maxValue] and [minValue].
      */
     private val valuesRange: Double
-        get() = (maxValue.value?.toDoubleOrNull() ?: 0.0) - (minValue.value?.toDoubleOrNull() ?: 1.0) + 1 // + 1 because log fun have start at 1.
+        get() = (maxValue.value?.toDoubleOrNull() ?: 0.0) - (minValue.value?.toDoubleOrNull() ?: 1.0)
 
     /**
      * Min value on slider (expected 1).
@@ -95,12 +96,12 @@ class MainActivity : AppCompatActivity() {
      * Calculate amount from current slider value
      */
     private fun getSliderCurrentValue(value: Double, logBase: Double, minValue: Double = 0.0): Double =
-        logBase.pow(value) + minValue - 1.0 // -1.0 because log starts at 1.
+        value.pow(logBase) + minValue
 
     /**
      * Get Base of logarithm from number and steps which we set.
      * [maxValue] is Max amount from BE.
      * [sliderSteps] how many steps we have on Slider. Expect 100 paces (0-100)
      */
-    private fun getLogBase(maxValue: Double = valuesRange, sliderSteps: Double = 100.0): Double = exp(ln(maxValue) / sliderSteps)
+    private fun getLogBase(maxValue: Double = valuesRange, sliderSteps: Double = 100.0): Double = log(valuesRange) / log(100.0)
 }
