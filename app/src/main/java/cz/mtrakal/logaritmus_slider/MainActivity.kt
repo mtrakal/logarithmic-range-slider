@@ -103,5 +103,5 @@ class MainActivity : AppCompatActivity() {
      * [maxValue] is Max amount from BE.
      * [sliderSteps] how many steps we have on Slider. Expect 100 paces (0-100)
      */
-    private fun getLogBase(maxValue: Double = valuesRange, sliderSteps: Double = 100.0): Double = log(valuesRange) / log(100.0)
+    private fun getLogBase(maxValue: Double = valuesRange, sliderSteps: Double = 100.0): Double = log(valuesRange) / log(sliderSteps)
 }
