@@ -6,7 +6,7 @@
 
         <variable
             name="item"
-            type="cz.mtrakal.logaritmus_slider.MainActivity" />
+            type="cz.mtrakal.logarithmslider.MainActivity" />
     </data>
 
     <LinearLayout
@@ -15,32 +15,51 @@
         android:orientation="vertical"
         tools:context=".MainActivity">
 
+
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Min value">
+            android:hint="Slider max value (steps)"
+            tools:ignore="HardcodedText">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:imeOptions="actionDone"
                 android:inputType="numberDecimal"
-                android:text="@={item.minValue}" />
+                android:text="@={item.sliderSteps}" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Min value (amount)"
+            tools:ignore="HardcodedText">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionDone"
+                android:inputType="numberDecimal"
+                android:text="@={item.amountMinValue}" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Max value">
+            android:hint="Max value (amount)"
+            tools:ignore="HardcodedText">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:imeOptions="actionDone"
                 android:inputType="numberDecimal"
-                android:text="@={item.maxValue}" />
+                android:text="@={item.amountMaxValue}" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.slider.RangeSlider
+        <cz.mtrakal.logarithmslider.LogarithmicRangeSlider
             android:id="@+id/vSlider"
             style="@style/Widget.MaterialComponents.Slider"
             android:layout_width="match_parent"
@@ -52,26 +71,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:enabled="false"
-            android:hint="Logarithm base">
+            android:hint="Logarithm base"
+            tools:ignore="HardcodedText">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/vLogBase"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@{item.logBaseLD}" />
+                android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:enabled="false"
-            android:hint="Current value min">
+            android:hint="Current slider value min"
+            tools:ignore="HardcodedText">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/currentSliderValueMin"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:text="@{item.currentValueMin}" />
+                android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -79,13 +98,40 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:enabled="false"
-            android:hint="Current value max">
+            android:hint="Current slider value max"
+            tools:ignore="HardcodedText">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/currentSliderValueMax"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="numberDecimal"
-                android:text="@{item.currentValueMax}" />
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:hint="Current value min"
+            tools:ignore="HardcodedText">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/currentAmountValueMin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:hint="Current value max"
+            tools:ignore="HardcodedText">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/currentAmountValueMax"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>

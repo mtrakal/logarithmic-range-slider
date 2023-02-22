@@ -1,4 +1,4 @@
-package cz.mtrakal.logaritmus_slider
+package cz.mtrakal.logarithmslider
 
 import org.junit.Test
 
